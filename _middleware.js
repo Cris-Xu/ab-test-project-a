@@ -16,7 +16,7 @@ function middleware(request) {
 
     return NextResponse.rewrite(
       new URL(
-        `https://ab-test-project-b.netlify.app${request.nextUrl.pathname}?abTest=${abTest}`,
+        `https://ab-test-project-b.netlify.app${request.nextUrl.pathname}`,
         request.url
       )
     );

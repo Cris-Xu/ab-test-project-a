@@ -6,6 +6,7 @@ const SPLIT_RATE = 0.5;
 function middleware(request) {
   console.log("nextUrl", request.nextUrl);
   const abTestCookie = request.cookies.get("abTest");
+  console.log("abTestCookie", abTestCookie);
 
   const randomNumber = Math.random();
 

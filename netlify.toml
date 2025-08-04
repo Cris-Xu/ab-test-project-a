@@ -1,0 +1,4 @@
+[[redirects]]
+  from = "/project-b/*"
+  to = "https://ab-test-project-b.netlify.app/project-b/:splat"
+  status = 200

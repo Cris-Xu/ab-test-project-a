@@ -7,34 +7,24 @@ function middleware(request) {
   console.log("nextUrl", request.nextUrl);
   const abTestCookie = request.cookies.get("abTest");
 
+  const randomNumber = Math.random();
+
   // AB测试分流, 随机分50%的流量
-  const abTest = Math.random() < SPLIT_RATE;
+  const abTest = randomNumber < SPLIT_RATE;
   if (abTestCookie === "b" || abTest) {
-    console.log("b project");
+    console.log("b project", randomNumber);
+
     return NextResponse.rewrite(
       new URL(
         `https://ab-test-project-b.netlify.app${request.nextUrl.pathname}?abTest=${abTest}`,
         request.url
-      ),
-      {
-        request: {
-          headers: {
-            "Set-Cookie": "abTest=b",
-          },
-        },
-      }
+      )
     );
   }
 
-  console.log("a project");
+  console.log("a project", randomNumber);
 
-  return NextResponse.rewrite(new URL(request.nextUrl.pathname, request.url), {
-    request: {
-      headers: {
-        "Set-Cookie": "abTest=a",
-      },
-    },
-  });
+  return NextResponse.rewrite(new URL(request.nextUrl.pathname, request.url));
 }
 
 export default middleware;

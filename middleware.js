@@ -12,9 +12,6 @@ function middleware(request) {
 
   const queryB = request.nextUrl.search?.includes("abTest=b");
 
-  // AB测试分流, 随机分50%的流量
-  const abTest = randomNumber < SPLIT_RATE;
-
   let version = "";
 
   if (abTestCookie === "b" || queryB) {
@@ -22,6 +19,8 @@ function middleware(request) {
   }
 
   if (!version) {
+    // AB测试分流, 随机分50%的流量
+    const abTest = randomNumber < SPLIT_RATE;
     version = abTest ? "a" : "b";
   }
 

@@ -10,9 +10,11 @@ function middleware(request) {
 
   const randomNumber = Math.random();
 
+  const queryB = request.nextUrl.search?.includes("abTest=b");
+
   // AB测试分流, 随机分50%的流量
   const abTest = randomNumber < SPLIT_RATE;
-  if (abTestCookie === "b" || abTest) {
+  if (abTestCookie === "b" || queryB || abTest) {
     console.log("b project", randomNumber);
 
     return NextResponse.rewrite(

@@ -1,3 +1,13 @@
+[[headers]]
+for = "/project-b/_next/static/*"
+  [headers.values]
+  Cache-Control = "public, max-age=31557600"
+
+[[headers]]
+for = "/_next/static/*"
+  [headers.values]
+  Cache-Control = "public, max-age=31557600"
+
 [[redirects]]
   from = "/project-b/*"
   to = "https://ab-test-project-b.netlify.app/:splat"

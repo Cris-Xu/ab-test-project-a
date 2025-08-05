@@ -14,9 +14,18 @@ function middleware(request) {
 
   // AB测试分流, 随机分50%的流量
   const abTest = randomNumber < SPLIT_RATE;
-  if (abTestCookie === "b" || queryB || abTest) {
-    console.log("b project", randomNumber);
 
+  let version = "";
+
+  if (abTestCookie === "b" || queryB) {
+    version = "b";
+  }
+
+  if (!version) {
+    version = abTest ? "a" : "b";
+  }
+
+  if (version === "b") {
     return NextResponse.rewrite(
       new URL(
         `https://ab-test-project-b.netlify.app${request.nextUrl.pathname}`,
@@ -24,8 +33,6 @@ function middleware(request) {
       )
     );
   }
-
-  console.log("a project", randomNumber);
 
   return NextResponse.rewrite(new URL(request.nextUrl.pathname, request.url));
 }

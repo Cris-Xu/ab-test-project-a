@@ -5,7 +5,7 @@ const SPLIT_RATE = 0.5;
 // This function can be marked `async` if using `await` inside
 function middleware(request) {
   console.log("nextUrl", request.nextUrl);
-  const abTestCookie = request.cookies.get("abTest").value;
+  const abTestCookie = request.cookies.get("abTest")?.value;
   console.log("abTestCookie", abTestCookie);
 
   const randomNumber = Math.random();
